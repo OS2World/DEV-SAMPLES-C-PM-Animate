@@ -1,0 +1,9 @@
+;-------------------------------------
+; ANIMATE1.DEF module definition file
+;-------------------------------------
+
+NAME  ANIMATE1  WINDOWAPI
+
+DESCRIPTION '@#OS2World:1.01#@##1## 10 Jun 2023 20:00:00     ARCAOS-507::::::v1.01@@Animate1 - Animate1 application'
+
+HEAPSIZE    32768
