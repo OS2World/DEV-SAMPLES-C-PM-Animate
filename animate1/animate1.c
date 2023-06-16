@@ -88,7 +88,7 @@ int main(VOID)
                            FCF_TASKLIST   | FCF_TITLEBAR      | FCF_SYSMENU |
                            FCF_SIZEBORDER | FCF_MINMAX        | FCF_MENU ;
 
-   hab = WinInitialize( (ULONG)NULL );
+   hab = WinInitialize( 0 );
 
    hmq=WinCreateMsgQueue( hab,0 );
 
