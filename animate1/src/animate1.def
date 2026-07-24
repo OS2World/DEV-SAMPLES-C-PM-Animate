@@ -1,0 +1,10 @@
+; animate1.def -- module definition file
+;
+; NAME WINDOWAPI  - 32-bit OS/2 Presentation Manager application
+; HEAPSIZE        - default heap size for runtime memory allocation
+
+NAME  ANIMATE1  WINDOWAPI
+
+DESCRIPTION '@#OS2World:1.02#@##1## 23 Jul 2026 00:00:00     ARCAOS-507::::::v1.02@@Animate1 - PM animation with multiple bitmap frames and a timer'
+
+HEAPSIZE  32768

@@ -1,0 +1,33 @@
+# Makefile.gcc -- animate2 built with GCC for OS/2
+#
+# Usage:  make -f Makefile.gcc          (builds bin-gcc/animate2.exe)
+#         make -f Makefile.gcc clean
+#
+# Requires:
+#   yum install gcc libc-devel binutils watcom-wlink-hll watcom-wrc kbuild-make
+
+CC     = gcc
+CFLAGS = -Zomf -Wall -O2
+BINDIR = bin-gcc
+SRCDIR = src
+
+export EMXOMFLD_TYPE   = WLINK
+export EMXOMFLD_LINKER = wl.exe
+
+all: $(BINDIR)/animate2.exe
+
+$(BINDIR):
+	mkdir $@
+
+$(BINDIR)/animate2.obj: $(SRCDIR)/animate2.c $(SRCDIR)/animate2.h | $(BINDIR)
+	$(CC) $(CFLAGS) -c -o $@ $<
+
+$(BINDIR)/animate2.exe: $(BINDIR)/animate2.obj $(SRCDIR)/animate2.def
+	$(CC) -Zomf -o $@ $(filter %.obj,$^) $(SRCDIR)/animate2.def
+	wrc -r -I$(WATCOM)/h/os2 -I$(WATCOM)/h -I$(SRCDIR) -fo=$(BINDIR)/animate2.res $(SRCDIR)/animate2.rc
+	wrc $(BINDIR)/animate2.res $@
+
+clean: $(BINDIR)
+	-del $(BINDIR)\*.obj
+	-del $(BINDIR)\*.res
+	-del $(BINDIR)\*.exe

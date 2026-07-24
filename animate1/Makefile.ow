@@ -1,0 +1,32 @@
+# Makefile.ow -- animate1 built with OpenWatcom for OS/2
+#
+# Usage:  wmake -f Makefile.ow          (builds bin-ow/animate1.exe)
+#         wmake -f Makefile.ow clean
+#
+# Requires:
+#   OpenWatcom C/C++ 2.0  -- WATCOM env var must point to the OW root
+
+CC     = wcc386
+CFLAGS = -bt=os2 -mf -3 -zq -i=$(%WATCOM)\h;$(%WATCOM)\h\os2
+BINDIR = bin-ow
+SRCDIR = src
+
+DESCRIPTION = '@#OS2World:1.02#@##1## 23 Jul 2026 00:00:00     ARCAOS-507::::::v1.02@@Animate1 - PM animation with multiple bitmap frames and a timer'
+
+all: $(BINDIR)\animate1.exe
+
+$(BINDIR):
+	mkdir $@
+
+$(BINDIR)\animate1.obj: $(SRCDIR)\animate1.c $(SRCDIR)\animate1.h | $(BINDIR)
+	$(CC) $(CFLAGS) -fo=$@ $<
+
+$(BINDIR)\animate1.exe: $(BINDIR)\animate1.obj
+	wlink system os2v2_pm name $@ file { $< } option heap=32768 option description $(DESCRIPTION)
+	wrc -r -I$(%WATCOM)\h\os2 -I$(%WATCOM)\h -I$(SRCDIR) -fo=$(BINDIR)\animate1.res $(SRCDIR)\animate1.rc
+	wrc $(BINDIR)\animate1.res $@
+
+clean: .SYMBOLIC
+	-del $(BINDIR)\*.obj
+	-del $(BINDIR)\*.res
+	-del $(BINDIR)\*.exe

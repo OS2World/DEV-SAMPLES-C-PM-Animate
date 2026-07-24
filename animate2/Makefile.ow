@@ -1,0 +1,32 @@
+# Makefile.ow -- animate2 built with OpenWatcom for OS/2
+#
+# Usage:  wmake -f Makefile.ow          (builds bin-ow/animate2.exe)
+#         wmake -f Makefile.ow clean
+#
+# Requires:
+#   OpenWatcom C/C++ 2.0  -- WATCOM env var must point to the OW root
+
+CC     = wcc386
+CFLAGS = -bt=os2 -mf -3 -zq -i=$(%WATCOM)\h;$(%WATCOM)\h\os2
+BINDIR = bin-ow
+SRCDIR = src
+
+DESCRIPTION = '@#OS2World:1.02#@##1## 23 Jul 2026 00:00:00     ARCAOS-507::::::v1.02@@Animate2 - PM animation with a single sprite-sheet bitmap and a timer'
+
+all: $(BINDIR)\animate2.exe
+
+$(BINDIR):
+	mkdir $@
+
+$(BINDIR)\animate2.obj: $(SRCDIR)\animate2.c $(SRCDIR)\animate2.h | $(BINDIR)
+	$(CC) $(CFLAGS) -fo=$@ $<
+
+$(BINDIR)\animate2.exe: $(BINDIR)\animate2.obj
+	wlink system os2v2_pm name $@ file { $< } option stack=16384 option description $(DESCRIPTION)
+	wrc -r -I$(%WATCOM)\h\os2 -I$(%WATCOM)\h -I$(SRCDIR) -fo=$(BINDIR)\animate2.res $(SRCDIR)\animate2.rc
+	wrc $(BINDIR)\animate2.res $@
+
+clean: .SYMBOLIC
+	-del $(BINDIR)\*.obj
+	-del $(BINDIR)\*.res
+	-del $(BINDIR)\*.exe

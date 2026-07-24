@@ -1,0 +1,14 @@
+animate1/bin-ow/
+animate1/bin-gcc/
+animate2/bin-ow/
+animate2/bin-gcc/
+*.obj
+*.res
+*.map
+*.err
+*.lst
+*.exe
+compile.log
+make.out
+*.mbr
+*.sym

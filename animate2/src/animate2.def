@@ -1,0 +1,10 @@
+; animate2.def -- module definition file
+;
+; NAME WINDOWAPI - 32-bit OS/2 Presentation Manager application
+; STACKSIZE      - default stack size for the main thread
+
+NAME  ANIMATE2  WINDOWAPI
+
+DESCRIPTION '@#OS2World:1.02#@##1## 23 Jul 2026 00:00:00     ARCAOS-507::::::v1.02@@Animate2 - PM animation with a single sprite-sheet bitmap and a timer'
+
+STACKSIZE  16384
